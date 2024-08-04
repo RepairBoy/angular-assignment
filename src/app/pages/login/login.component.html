@@ -1,0 +1,54 @@
+
+  <div class="container d-flex justify-content-center align-items-center">
+    <form [formGroup]="loginForm" (ngSubmit)="checkLogin()" class="card p-5">
+        <h1 class="text-center">{{headerText}}</h1>
+    <div
+      class="w-100 md:w-5 d-flex flex-column align-items-center justify-content-center gap-3 py-5"
+    >
+      <div
+        class="d-flex flex-wrap justify-content-center align-items-center gap-2"
+      >
+        
+      <label for="floatingEmail">Email</label>
+        <input
+          pInputText
+          id="floatingEmail"
+          type="email"
+          class="form-control"
+          formControlName="email"
+        />
+       
+      </div>
+      <div
+        class="d-flex flex-wrap justify-content-center align-items-center gap-2 "
+      >
+        
+        <label for="floatingPassword">Password</label>
+        <input
+          pInputText
+          id="floatingPassword"
+          type="password"
+          class="form-control"
+          formControlName="password"
+        />
+      </div>
+      <!-- <p-button class=" loginBtn" label="Login"></p-button> -->
+      <button class="btn btn-primary loginBtn" type="submit" [disabled]="loginForm.invalid">Login</button>
+    </div>
+    </form>
+
+    <div>
+      <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+        <div *ngIf="loginForm.get('email')?.errors?.['required']">Email is required.</div>
+        <div *ngIf="loginForm.get('email')?.errors?.['email']">Invalid email.</div>
+      </div>
+      <div >
+        <div class="green" [class.red]="loginForm.get('password')?.hasError('minlength')  || loginForm.get('password')?.hasError('maxlength') || loginForm.get('password')?.errors?.['required']" >Password length must be 8 to 20 letters.</div>
+        <div class="green" [class.red]="loginForm.get('password')?.hasError('hasSpecialChars')">Password must contain atleast one special character (,!,/,_..etc)</div>
+        <div class="green" [class.red]="loginForm.get('password')?.hasError('hasNumber')" >Password must have a number.</div>
+        <div class="green" [class.red]="loginForm.get('password')?.hasError('hasWhitespace')" >Password should not have blank space.</div>
+      </div>
+    </div>
+
+  </div>
+

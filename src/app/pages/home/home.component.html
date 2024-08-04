@@ -1,0 +1,15 @@
+
+<div class="container">
+    @for (category of sectionCategory; track $index) {
+      <div class="mt-3">
+        <h1 class="text-center">{{sectionTitle[$index]}}</h1>
+      <div id="categoryContainer" class="container d-flex">
+        @for (item of products; track item.id) {
+          @if (item.category == category) {
+            <app-card [products]='item'></app-card>
+          }
+        }
+      </div>
+    </div>
+    }
+</div>

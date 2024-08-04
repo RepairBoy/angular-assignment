@@ -1,0 +1,22 @@
+#categoryContainer{
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+}
+
+
+.buttonss{
+    width: 40px;
+    height: 40px;
+    background-color: rgb(125, 40, 40);
+    border: none;
+}
+
+.btn:hover{
+    background-color: rgb(216, 64, 64);
+    scale: 1.1;
+    transition: ease-in-out 0.5s;
+}
+
+.mycount{
+    font-size: 35px;
+}

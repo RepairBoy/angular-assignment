@@ -1,0 +1,21 @@
+.container{
+    height: 100vh;
+}
+.form-control{
+    border-color: #C75B7A;
+}
+form{
+    background-color: #D9ABAB;
+}
+.btn{
+    background-color: #921A40;
+}
+.parent{
+    height: 90vh;
+}
+.green{
+    color: green;
+}
+.red{
+    color: red;
+}
