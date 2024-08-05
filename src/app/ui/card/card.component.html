@@ -3,9 +3,19 @@
     <div class="card" style="width: 18rem;">
         <img ngSrc={{products.thumbnail}} class="card-img-top" alt="Kottayam" width="32" height="32" priority>
         <div class="card-body">
-            <h5 class="card-title text-center">{{products.title}}</h5>
-          <p class="card-text">{{products.description}}</p>
-            <p>In stock: {{products.stock}}</p>
+            <h6 class="card-title text-center">{{products.title}}</h6>
+            <div class="row">
+                <div class="col">
+                    <p class="card-text">{{convertToInr(products.price) | currency:'INR'}}</p>
+                    <p>In stock: {{products.stock}}</p>
+                </div>
+                <div class="col d-flex flex-column align-items-center">
+                    
+                    <app-checkout-button [products] = 'products'></app-checkout-button>
+                </div>
+            </div>
+          
+            
         </div>
     </div>
 </div>

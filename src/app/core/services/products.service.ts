@@ -6,30 +6,45 @@ import { Product } from '../interfaces/product';
   providedIn: 'root'
 })
 export class ProductsService {
-  public myproductdata = signal<any[]>([]);
+  public myproductdata = signal<Product[]>([]);
+  public myCart = signal<Product[]>([]);
   private apiUrl = 'https://dummyjson.com/products';
-  private productsSubject = new BehaviorSubject<any[]>([]);
-  public products$ = this.productsSubject.asObservable();
+  // private productsSubject = new BehaviorSubject<any[]>([]);
+  // public products$ = this.productsSubject.asObservable();
 
   constructor(private http: HttpClient) {
-    this.fetchData().subscribe();
+    // this.fetchData()
+    // this.products = this.productService.getProducts();
 
   }
 
   // Method to fetch data from the API and store it in the 'productsSubject'
-  private fetchData(): Observable<any> {
-    return this.http.get<any>(this.apiUrl).pipe(
-      tap(response => {
-        this.productsSubject.next(response.products);
+  public fetchData() {
+     this.http.get<any>(this.apiUrl).subscribe((response) => {
+     
+        // console.log(response.products))
+      
+        this.myproductdata.set(response.products)
         
-      })
-    );
+        console.log(this.myproductdata());
+  })
   }
 
   // Method to get the stored data
-  getProducts(): Observable<any[]> {
-    return this.products$;
+  getProducts() {
+    console.log(this.myproductdata());
+    
+    return this.myproductdata();
   }
-
+  changestock(productId: number, newStock: number) {
+    this.myproductdata.update(prevProducts => {
+      return prevProducts.map(product => {
+        if (product.id === productId) {
+          return { ...product, stock: newStock };
+        }
+        return product;
+      });
+  });
+ }
 
 }

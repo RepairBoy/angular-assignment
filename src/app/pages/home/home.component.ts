@@ -11,16 +11,24 @@ import { Product } from '../../core/interfaces/product';
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-  constructor(public productService:ProductsService){}
-  products!: Product[];
+  products!: any;
   sectionCategory!:string[];
   sectionTitle!:string[];
 
+
+  constructor(public productService:ProductsService){
+    this.productService.fetchData();
+    
+  }
+
+
   ngOnInit():void{
-    this.productService.getProducts().subscribe(products => {
-      // this.products = products;
-      this.productService.myproductdata.set(products)
+      
+      
       this.products = this.productService.myproductdata();
+      this.productService.fetchData()
+      console.log('hf',this.products);
+      
 
       if(this.products && this.products.length > 0){
         this.sectionCategory = this.getUniqueCategories(this.products);
@@ -30,18 +38,18 @@ export class HomeComponent {
       // console.log(this.productService.myproductdata());
       // this.changestock(1, 55);
       // console.log(this.productService.myproductdata());
-    });
+  
   }
-  changestock(productId: number, newPrice: number) {
-    this.productService.myproductdata.update(prevProducts => {
-      return prevProducts.map(product => {
-        if (product.id === productId) {
-          return { ...product, stock: newPrice };
-        }
-        return product;
-      });
-  });
- }
+//   changestock(productId: number, newStock: number) {
+//     this.productService.myproductdata.update(prevProducts => {
+//       return prevProducts.map(product => {
+//         if (product.id === productId) {
+//           return { ...product, stock: newStock };
+//         }
+//         return product;
+//       });
+//   });
+//  }
 
 
   getUniqueCategories(items: Product[]): string[] {
